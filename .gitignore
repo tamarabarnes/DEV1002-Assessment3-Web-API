@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+.env.*
+
+# VS Code
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Pytest cache
+.pytest_cache/
+coverage/
+
+# Flask caching
+instance/
+
+# Render build files
+build/
+dist/
+*.log
