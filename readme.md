@@ -1,38 +1,30 @@
-Absolutely — here is your **fully polished, HD-ready, assessor-friendly README**.
-I’ve kept ALL of your detail but improved clarity, structure, wording, formatting, and consistency.
-This is now a professional-grade API documentation file.
 
----
+# Recipe API – Flask + PostgreSQL
 
-# 🌟 **Recipe API – Flask + PostgreSQL**
+- A RESTful API built with Flask, PostgreSQL, and SQLAlchemy, allowing users to manage recipes, authors, user accounts, and saved recipes.
+- It supports full CRUD operations across all major resources and demonstrates relational database modelling, data validation, ORM usage, password hashing, and cloud deployment.
 
-A RESTful API built with **Flask**, **PostgreSQL**, and **SQLAlchemy**, allowing users to manage recipes, authors, user accounts, and saved recipes.
-It supports full CRUD operations across all major resources and demonstrates relational database modelling, data validation, ORM usage, password hashing, and cloud deployment.
 
----
+# Table of Contents
 
-# 📑 **Table of Contents**
+- Project Overview
+- Tech Stack
+- Features
+- ERD Diagram
+- Database Schema
+- Database Choice: Why PostgreSQL?
+- Installation and Setup
+- Running the Application
+- API Endpoints
+- Example Requests
+- Validation Rules
+- Testing Checklist
+- Future Improvements
+- Deployment
+- Live Endpoints
+- Deployment Notes
 
-* [Project Overview](#project-overview)
-* [Tech Stack](#tech-stack)
-* [Features](#features)
-* [ERD Diagram](#erd-diagram)
-* [Database Schema](#database-schema)
-* [Database Choice: Why PostgreSQL?](#database-choice-why-postgresql)
-* [Installation and Setup](#installation-and-setup)
-* [Running the Application](#running-the-application)
-* [API Endpoints](#api-endpoints)
-* [Example Requests](#example-requests)
-* [Validation Rules](#validation-rules)
-* [Testing Checklist](#testing-checklist)
-* [Future Improvements](#future-improvements)
-* [Deployment](#deployment)
-* [Live Endpoints](#live-endpoints)
-* [Deployment Notes](#deployment-notes)
-
----
-
-# 🧠 **Project Overview**
+# Project Overview
 
 This REST API allows users to:
 
@@ -42,12 +34,10 @@ This REST API allows users to:
 * View, update, and delete recipes
 * Retrieve saved recipes by user
 
-A **relational PostgreSQL database** is used, enforcing data integrity through foreign keys, composite keys, and validation rules.
+- A relational PostgreSQL database is used, enforcing data integrity through foreign keys, composite keys, and validation rules.
 The API follows REST best practices with correct HTTP methods and HTTP status codes.
 
----
-
-# 🧰 **Tech Stack**
+# Tech Stack
 
 | Component          | Technology |
 | ------------------ | ---------- |
@@ -59,62 +49,58 @@ The API follows REST best practices with correct HTTP methods and HTTP status co
 | Language           | Python 3   |
 | Deployment         | Render     |
 
----
 
-# ✨ **Features**
+# Features
 
-### 👤 Users CRUD
+###  Users CRUD
 
-* Create, read, update, delete users
-* Passwords stored **hashed** (never in plain-text)
+- Create, read, update, delete users
+- Passwords stored hashed (never in plain-text)
 
-### 🧑‍🍳 Authors CRUD
+### Authors CRUD
 
 * Add and manage recipe authors
 * Optional social media link
 * Safe updates and deletions
 
-### 🍜 Recipes CRUD
+### Recipes CRUD
 
-* Store recipe details
-* Validate difficulty level (`easy`, `medium`, `hard`)
-* `cook_time` stored as an SQL `INTERVAL`
-* Strict foreign key linking to authors
+- Store recipe details
+- Validate difficulty level (`easy`, `medium`, `hard`)
+- `cook_time` stored as an SQL `INTERVAL`
+- Strict foreign key linking to authors
 
-### ⭐ Saved Recipes System
+### Saved Recipes System
 
-* Users can save recipes with:
+- Users can save recipes with:
+  - Personal rating (1–5)
+  - Personal notes
+  - Timestamp (`saved_at`)
+- Composite key (`user_id`, `recipe_id`) prevents duplicates
+- Full validation and safe deletion
 
-  * Personal **rating** (1–5)
-  * Personal **notes**
-  * Timestamp (`saved_at`)
-* Composite key (`user_id`, `recipe_id`) prevents duplicates
-* Full validation and safe deletion
+### Clean Architecture
 
-### 🧹 Clean Architecture
+- Routes organised via Blueprints
+- Centralised DB initialisation (`database.py`)
+- ORM models defined clearly in `models.py`
 
-* Routes organised via **Blueprints**
-* Centralised DB initialisation (`database.py`)
-* ORM models defined clearly in `models.py`
-
----
-
-# 🗺 **ERD Diagram**
+# ERD Diagram
 
 ![ERD Diagram for Recipe API Server](<DEV1002-Recipe-API-Server-ERD.png>)
 
-**Key Relationships:**
+# Key Relationships:
 
-* One Author → Many Recipes
-* One User → Many Saved Recipes
-* One Recipe → Many Saved Recipes
-* `user_saved_recipes` = junction table with composite primary key
+- One Author → Many Recipes
+- One User → Many Saved Recipes
+- One Recipe → Many Saved Recipes
+- `user_saved_recipes` = junction table with composite primary key
 
 ---
 
-# 🏛 **Database Schema**
+# Database Schema
 
-### 🧑‍🤝‍🧑 Users
+### Users
 
 | Column          | Type         | Constraints      |
 | --------------- | ------------ | ---------------- |
@@ -126,7 +112,7 @@ The API follows REST best practices with correct HTTP methods and HTTP status co
 
 ---
 
-### 🧑‍🍳 Author
+### Author
 
 | Column            | Type         | Constraints |
 | ----------------- | ------------ | ----------- |
@@ -137,7 +123,7 @@ The API follows REST best practices with correct HTTP methods and HTTP status co
 
 ---
 
-### 🍽 Recipes
+### Recipes
 
 | Column           | Type         | Constraints  |
 | ---------------- | ------------ | ------------ |
@@ -152,7 +138,7 @@ The API follows REST best practices with correct HTTP methods and HTTP status co
 
 ---
 
-### ⭐ user_saved_recipes (Junction Table)
+### user_saved_recipes (Junction Table)
 
 | Column    | Type      | Constraints   |
 | --------- | --------- | ------------- |
@@ -164,11 +150,11 @@ The API follows REST best practices with correct HTTP methods and HTTP status co
 
 ---
 
-# 💾 **Database Choice: Why PostgreSQL?**
+# Database Choice: Why PostgreSQL?
 
-PostgreSQL was chosen because it is a **highly reliable, ACID-compliant relational database** that supports strong data consistency—important for this API, which depends on relationships between users, recipes, authors, and saved recipes.
+PostgreSQL was chosen because it is a highly reliable, ACID-compliant relational database that supports strong data consistency—important for this API, which depends on relationships between users, recipes, authors, and saved recipes.
 
-Compared to **MongoDB** (a NoSQL database):
+Compared to MongoDB (a NoSQL database):
 
 | PostgreSQL                         | MongoDB                                 |
 | ---------------------------------- | --------------------------------------- |
@@ -177,7 +163,7 @@ Compared to **MongoDB** (a NoSQL database):
 | Enforces relationships             | No foreign keys                         |
 | Excellent for complex joins        | Excellent for dynamic/unstructured data |
 
-**Why PostgreSQL fits this project:**
+# Why PostgreSQL fits this project:
 
 * Clear, enforced relationships between tables
 * Guaranteed referential integrity
@@ -186,7 +172,6 @@ Compared to **MongoDB** (a NoSQL database):
 
 MongoDB is better for evolving, unstructured data, but this project requires consistent, relational modelling — making PostgreSQL the ideal fit.
 
----
 
 # Installation and Setup**
 
@@ -324,21 +309,21 @@ http://localhost:5000
 
 ### Users
 
-* Email must be **unique**
-* Password stored **hashed**
-* Required fields: first_name, last_name, email, password
+- Email must be **unique**
+- Password stored **hashed**
+- Required fields: first_name, last_name, email, password
 
 ### Recipes
 
-* Difficulty must be: `easy`, `medium`, `hard`
-* cook_time must be an integer (minutes)
-* author_id must exist
+- Difficulty must be: `easy`, `medium`, `hard`
+- cook_time must be an integer (minutes)
+- author_id must exist
 
 ### Saved Recipes
 
-* Recipe cannot be saved twice
-* Rating 1–5
-* Notes optional
+- Recipe cannot be saved twice
+- Rating 1–5
+- Notes optional
 
 ---
 
@@ -346,43 +331,43 @@ http://localhost:5000
 
 ### USERS
 
-* [x] POST /users
-* [x] GET /users
-* [x] GET /users/<id>
-* [x] PUT /users/<id>
-* [x] DELETE /users/<id>
+-  [x] POST /users
+-  [x] GET /users
+-  [x] GET /users/<id>
+-  [x] PUT /users/<id>
+-  [x] DELETE /users/<id>
 
 ### AUTHORS
 
-* [x] POST /authors
-* [x] GET /authors
-* [x] PUT /authors/<id>
-* [x] DELETE /authors/<id>
+- [x] POST /authors
+- [x] GET /authors
+- [x] PUT /authors/<id>
+- [x] DELETE /authors/<id>
 
 ### RECIPES
 
-* [x] POST /recipes
-* [x] GET /recipes
-* [x] GET /recipes/<id>
-* [x] PUT /recipes/<id>
-* [x] DELETE /recipes/<id>
+- [x] POST /recipes
+- [x] GET /recipes
+- [x] GET /recipes/<id>
+- [x] PUT /recipes/<id>
+- [x] DELETE /recipes/<id>
 
 ### SAVED RECIPES
 
-* [x] POST /saved
-* [x] GET /saved/user/<id>
-* [x] DELETE /saved
+- [x] POST /saved
+- [x] GET /saved/user/<id>
+- [x] DELETE /saved
 
 ---
 
 # Future Improvements
 
-* Add JWT authentication
-* Add filters or search (e.g., cuisine, difficulty)
-* Add pagination
-* Add image uploads
-* Add admin roles
-* Add separate ingredients table
+- Add JWT authentication
+- Add filters or search (e.g., cuisine, difficulty)
+- Add pagination
+- Add image uploads
+- Add admin roles
+- Add separate ingredients table
 
 ---
 
@@ -408,20 +393,20 @@ https://dev1002-assessment3-web-api.onrender.com
 
 (These mirror the local endpoints and are fully functional.)
 
-* `GET https://dev1002-assessment3-web-api.onrender.com/authors/`
-* `POST https://dev1002-assessment3-web-api.onrender.com/users/`
-* etc.
+- `GET https://dev1002-assessment3-web-api.onrender.com/authors/`
+- `POST https://dev1002-assessment3-web-api.onrender.com/users/`
+- etc.
 
 ---
 
 # Deployment Notes
 
-* Uses Render's **Internal Database URL** via environment variables
-* Gunicorn is used as the production WSGI server
-* SQLAlchemy auto-creates tables if they do not exist
-* `.gitignore` excludes venv and cached files
-* All dependencies listed in `requirements.txt`
-* Passwords are hashed using Werkzeug’s secure hashing
+- Uses Render's **Internal Database URL** via environment variables
+- Gunicorn is used as the production WSGI server
+- SQLAlchemy auto-creates tables if they do not exist
+- `.gitignore` excludes venv and cached files
+- All dependencies listed in `requirements.txt`
+- Passwords are hashed using Werkzeug’s secure hashing
 
 ---
 
