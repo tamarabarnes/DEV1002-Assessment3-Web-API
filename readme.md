@@ -372,3 +372,73 @@ http://localhost:5000
 
 This project demonstrates full-stack backend development using Flask, SQLAlchemy, and PostgreSQL with proper relational design, validation, and structured API endpoints.
 It adheres to REST principles and shows understanding of database modeling, foreign keys, and CRUD operations.
+
+# Deployment 
+
+## URL
+
+```
+https://dev1002-assessment3-web-api.onrender.com
+```
+
+Expected response:
+
+```json
+{ "message": "API is running and connected to PostgreSQL!" }
+```
+
+---
+
+# Available Endpoints (Live)
+
+### Authors
+
+| Method | Endpoint               | Description               |
+| ------ | ---------------------- | ------------------------- |
+| GET    | `/authors/`            | Get all authors           |
+| GET    | `/authors/<author_id>` | Get an author by ID       |
+| POST   | `/authors/`            | Create a new author       |
+| PUT    | `/authors/<author_id>` | Update an existing author |
+| DELETE | `/authors/<author_id>` | Delete an author          |
+
+---
+
+### Recipes
+
+| Method | Endpoint               | Description         |
+| ------ | ---------------------- | ------------------- |
+| GET    | `/recipes/`            | Get all recipes     |
+| GET    | `/recipes/<recipe_id>` | Get a recipe by ID  |
+| POST   | `/recipes/`            | Create a new recipe |
+| PUT    | `/recipes/<recipe_id>` | Update a recipe     |
+| DELETE | `/recipes/<recipe_id>` | Delete a recipe     |
+
+---
+
+### Users
+
+| Method | Endpoint           | Description                         |
+| ------ | ------------------ | ----------------------------------- |
+| GET    | `/users/`          | Get all users                       |
+| GET    | `/users/<user_id>` | Get a user by ID                    |
+| POST   | `/users/`          | Create a new user (password hashed) |
+| PUT    | `/users/<user_id>` | Update user details                 |
+| DELETE | `/users/<user_id>` | Delete a user                       |
+
+
+### User Saved Recipes
+
+| Method | Endpoint                | Description                      |
+| ------ | ----------------------- | -------------------------------- |
+| GET    | `/saved/user/<user_id>` | Get all saved recipes for a user |
+| POST   | `/saved/`               | Save a recipe for a user         |
+| DELETE | `/saved/`               | Remove a saved recipe            |
+
+# Deployment Notes
+
+- This project uses Render Web Service + Render PostgreSQL for deployment.
+- Environment variables are used to provide a secure `DATABASE_URL`.
+- SQLAlchemy models reflect the schema defined in the ERD (included in README).
+- Application uses Flask, Flask-SQLAlchemy, psycopg2, Gunicorn, and python-dotenv.
+- Passwords are securely hashed. 
+
